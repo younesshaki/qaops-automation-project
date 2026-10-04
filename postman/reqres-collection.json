@@ -1,0 +1,35 @@
+{
+  "info": {
+    "_postman_id": "b465ea17-4af3-4d95-9f24-4cec8da0e201",
+    "name": "QAOps — Reqres API regression",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "https://reqres.in" }],
+  "item": [
+    {
+      "name": "QA-API-01 — List users",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/users?page=2" },
+      "event": [{ "listen": "test", "script": { "exec": ["pm.test('HTTP 200', () => pm.response.to.have.status(200));", "const body = pm.response.json();", "pm.test('Response contains a non-empty data array', () => pm.expect(body.data).to.be.an('array').that.is.not.empty);", "pm.test('Pagination fields exist', () => pm.expect(body).to.include.keys('page', 'per_page', 'total', 'total_pages', 'data', 'support'));" ] } }]
+    },
+    {
+      "name": "QA-API-02 — Get a user",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/users/2" },
+      "event": [{ "listen": "test", "script": { "exec": ["pm.test('HTTP 200', () => pm.response.to.have.status(200));", "const body = pm.response.json();", "pm.test('Returned user has id 2 and an email', () => { pm.expect(body.data.id).to.eql(2); pm.expect(body.data.email).to.match(/@/); });"] } }]
+    },
+    {
+      "name": "QA-API-03 — Create a user",
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"name\": \"qaops-student\",\n  \"job\": \"tester\"\n}" }, "url": "{{baseUrl}}/api/users" },
+      "event": [{ "listen": "test", "script": { "exec": ["pm.test('HTTP 201', () => pm.response.to.have.status(201));", "const body = pm.response.json();", "pm.test('Created resource echoes controlled data', () => { pm.expect(body.name).to.eql('qaops-student'); pm.expect(body.job).to.eql('tester'); pm.expect(body.id).to.exist; });"] } }]
+    },
+    {
+      "name": "QA-API-04 — Update a user",
+      "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"name\": \"qaops-student\",\n  \"job\": \"senior-tester\"\n}" }, "url": "{{baseUrl}}/api/users/2" },
+      "event": [{ "listen": "test", "script": { "exec": ["pm.test('HTTP 200', () => pm.response.to.have.status(200));", "const body = pm.response.json();", "pm.test('Updated resource echoes requested job', () => pm.expect(body.job).to.eql('senior-tester'));", "pm.test('Timestamp is returned', () => pm.expect(body.updatedAt).to.exist);"] } }]
+    },
+    {
+      "name": "QA-API-05 — Delete a user",
+      "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/api/users/2" },
+      "event": [{ "listen": "test", "script": { "exec": ["pm.test('HTTP 204', () => pm.response.to.have.status(204));"] } }]
+    }
+  ]
+}

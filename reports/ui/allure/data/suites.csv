@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2799","QA-UI-02: selects a radio button","Formy Project — Selenium UI regression suite","2026-10-04","passed","2026-10-04","","","",""
+"","2034","QA-UI-05: handles a JavaScript alert and a newly opened browser tab","Formy Project — Selenium UI regression suite","2026-10-04","passed","2026-10-04","","","",""
+"","2407","QA-UI-03: opens the dropdown and exposes the Autocomplete option","Formy Project — Selenium UI regression suite","2026-10-04","passed","2026-10-04","","","",""
+"","2597","QA-UI-01: completes the registration form using controlled test data","Formy Project — Selenium UI regression suite","2026-10-04","passed","2026-10-04","","","",""
+"","2632","QA-UI-04: opens and closes a modal popup","Formy Project — Selenium UI regression suite","2026-10-04","passed","2026-10-04","","","",""

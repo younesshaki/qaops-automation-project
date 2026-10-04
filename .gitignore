@@ -1,0 +1,6 @@
+node_modules/
+allure-results/
+jmeter.log
+.DS_Store
+tools/chromedriver/
+.jenkins-home/

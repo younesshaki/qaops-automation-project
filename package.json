@@ -1,0 +1,22 @@
+{
+  "name": "qaops-automation-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QAOps coursework: Selenium UI, Postman/Newman API, JMeter and ZAP",
+  "scripts": {
+    "test:ui": "CHROMEDRIVER_PATH=tools/chromedriver/chromedriver mocha --timeout 60000 --reporter allure-mocha tests/ui/*.spec.js",
+    "report:ui": "PATH=/opt/homebrew/opt/openjdk@21/bin:$PATH npx allure generate allure-results --clean -o reports/ui/allure",
+    "test:api": "newman run postman/reqres-collection.json -r cli,json,htmlextra --reporter-json-export reports/api/newman.json --reporter-htmlextra-export reports/api/newman.html",
+    "test:all": "npm run test:ui && npm run report:ui && npm run test:api",
+    "test:performance": "bash scripts/run-jmeter.sh",
+    "test:security": "bash scripts/run-zap-baseline.sh"
+  },
+  "devDependencies": {
+    "allure-commandline": "^2.35.1",
+    "allure-mocha": "^3.4.1",
+    "mocha": "^11.7.4",
+    "newman": "^6.2.1",
+    "newman-reporter-htmlextra": "^1.23.1",
+    "selenium-webdriver": "^4.39.0"
+  }
+}
